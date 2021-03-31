@@ -1,13 +1,3 @@
 <?php 
-include("conn.php");
-if ($_SERVER['REQUEST_METHOD']=='GET' && !empty($_GET['idxoa'])) {
-	$idxoa=$_GET['idxoa'];
-	$sql= "DELETE FROM song WHERE SongID={$idxoa} limit 1";
-	if (pg_query($conn,$sql)) {
-		echo "Successful Delete".$idxoa;
-		header('Location:index.php');
-	}else{
-		echo "Error"
-	}
-}
 echo"Dang nhap thanh cong"
+?>
