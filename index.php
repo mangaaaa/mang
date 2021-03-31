@@ -7,41 +7,49 @@ if (!$dbConn) {
 }else{
 	echo"ok";
 }
-if($_SERVER['REQUEST_METHOD']=='POST'){
-	$username=$_POST['name'];
-	$password=$_POST['pass'];
-	$user= pg_query($dbConn, "SELECT * FROM login where us='{$username}' AND pw='{$password}'"));
-	if ($user) {
-		$_SESSION['login']=$user['us'];
-		header('location: a.php');
-		die;
-	}else{
-		echo "Wrong account information";}
+if(isset($_POST['submit'])&&!empty($_POST['submit'])){
+    
+    $hashpassword = md5($_POST['pwd']);
+    $sql ="select *from public.user where email = '".pg_escape_string($_POST['email'])."' and password ='".$hashpassword."'";
+    $data = pg_query($dbconn,$sql); 
+    $login_check = pg_num_rows($data);
+    if($login_check > 0){ 
+        
+        echo "Login Successfully";    
+    }else{
+        
+        echo "Invalid Details";
+    }
 }
- ?>
- <!DOCTYPE html>
- <html>
- <head>
-<link rel="icon" href="https://img.icons8.com/fluent/96/000000/data-configuration.png"/>
- 	<link rel="stylesheet" type="text/css" href="aset/admin.css">
- 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
- 	<title>Login form</title>
- </head>
- <body style="background-image: url(img/login.jpg)">
- <div class="container">
-  <h2 style="text-align: center; font-size: 30px">Welcome to login form </h2>
-  <form class="was-validated" method="POST">
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PHP PostgreSQL Registration & Login Example </title>
+  <meta name="keywords" content="PHP,PostgreSQL,Insert,Login">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <h2>Login Here </h2>
+  <form method="post">
+  
+     
     <div class="form-group">
-      <label for="uname">Username:</label>
-      <input type="text" class="form-control" id="uname" placeholder="Enter username" name="name" required>
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
     </div>
+    
+     
     <div class="form-group">
       <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pass" required>
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+     
+    <input type="submit" name="submit" class="btn btn-primary" value="Submit">
   </form>
 </div>
- </body>
- </html>
-
+</body>
+</html>
