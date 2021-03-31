@@ -10,5 +10,4 @@ if ($_SERVER['REQUEST_METHOD']=='GET' && !empty($_GET['idxoa'])) {
 		echo "Error".msqli_error($conn);
 	}
 }
- include("inc/header.php");
- include("list.php");
+echo"Dang nhap thanh cong"
