@@ -7,7 +7,6 @@ if (!$dbConn) {
     exit;
 }
 if($_SERVER['REQUEST_METHOD']=='POST'){
-	include('conn.php');
 	$username=$_POST['name'];
 	$password=$_POST['pass'];
 	$user= pg_query($dbConn, "SELECT * FROM login WHERE us='{$username}' AND pw='{$password}'"));
