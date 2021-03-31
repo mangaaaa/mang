@@ -4,16 +4,16 @@ ec2-23-22-191-232.compute-1.amazonaws.com port=5432 dbname=d9kre3i7166g8k user=g
 if (!$dbConn) {
     echo "An error occurred.\n";
     exit;
-}else{
-	echo"ok";
 }
 if(isset($_POST['submit'])&&!empty($_POST['submit'])){
     
     $hashpassword = md5($_POST['pwd']);
     $sql ="select *from login where us = '".pg_escape_string($_POST['email'])."' and pw ='".$hashpassword."'";
     $data = pg_query($dbconn,$sql); 
-    if($data){ 
-        header('location: a.php');   
+    $login_check = pg_num_rows($data);
+    if($login_check > 0){ 
+        
+        echo "Login Successfully";    
     }else{
         
         echo "Invalid Details";
@@ -37,7 +37,7 @@ if(isset($_POST['submit'])&&!empty($_POST['submit'])){
      
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
     </div>
     
      
