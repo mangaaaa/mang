@@ -1,5 +1,5 @@
 <?php 
-include("../inc/conn.php");
+include("/conn.php");
 if ($_SERVER['REQUEST_METHOD']=='GET' && !empty($_GET['idxoa'])) {
 	$idxoa=$_GET['idxoa'];
 	$sql= "DELETE FROM song WHERE SongID={$idxoa} limit 1";
