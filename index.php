@@ -12,8 +12,7 @@ if(isset($_POST['submit'])&&!empty($_POST['submit'])){
     $hashpassword = md5($_POST['pwd']);
     $sql ="select *from login where us = '".pg_escape_string($_POST['email'])."' and pw ='".$hashpassword."'";
     $data = pg_query($dbconn,$sql); 
-    $login_check = pg_num_rows($data);
-    if($login_check > 0){ 
+    if($data){ 
         header('location: a.php');   
     }else{
         
