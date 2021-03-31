@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 	$password=$_POST['pass'];
 	$user= pg_query($dbConn, "SELECT * FROM login where us='{$username}' AND pw='{$password}'"));
 	if ($user) {
-		$_SESSION['user']=$user['username'];
+		$_SESSION['login']=$user['us'];
 		header('location: a.php');
 		die;
 	}else{
