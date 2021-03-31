@@ -4,7 +4,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 	include('conn.php');
 	$username=$_POST['name'];
 	$password=$_POST['pass'];
-	$user= mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM login WHERE us='{$username}' AND pw='{$password}'"));
+	$user= pg_query($conn, "SELECT * FROM login WHERE us='{$username}' AND pw='{$password}'"));
 	if ($user) {
 		$_SESSION['user']=$user['username'];
 		header('location: index.php');
